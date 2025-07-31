@@ -287,6 +287,10 @@ class Base(object):
             The SQLAlchemy aliased model representation
 
         """
+        x = schema.split("_")
+        ini = x[0]
+        code = x[1].upper()
+        schema = ini + "_" + code
         name: str = f"{schema}.{table}"
         if name not in self.__models:
             if schema not in self.__metadata:
