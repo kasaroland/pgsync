@@ -866,10 +866,7 @@ class Base(object):
                 self.execute(sa.text(query))
 
     def function_exists(self, schema: str) -> bool:
-        x = schema.split("_")
-        ini = x[0]
-        code = x[1].upper()
-        schema = ini + "_" + code
+        schema = "\"" + schema "\""
         """Check if the trigger function exists."""
         return self.exists(
             sa.text(
