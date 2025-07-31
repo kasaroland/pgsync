@@ -7,9 +7,9 @@ The notification contains information about the updated table, the operation per
 
 from .constants import MATERIALIZED_VIEW, TRIGGER_FUNC
 
-def createTriggerTemplate(schema):
+def createTriggerTemplate(schema) -> str:
     return f"""
-        CREATE OR REPLACE FUNCTION {"\"" + schema + "\"" + "." + TRIGGER_FUNC}() RETURNS TRIGGER AS $$
+        CREATE OR REPLACE FUNCTION "{schema}".{TRIGGER_FUNC}() RETURNS TRIGGER AS $$
         DECLARE
         channel TEXT;
         old_row JSON;
@@ -28,7 +28,7 @@ def createTriggerTemplate(schema):
 
                 SELECT primary_keys, indices
                 INTO _primary_keys, _indices
-                FROM {"\"" + schema + "\"" + "." + MATERIALIZED_VIEW}
+                FROM "{schema}".{MATERIALIZED_VIEW}
                 WHERE table_name = TG_TABLE_NAME;
 
                 old_row = ROW_TO_JSON(OLD);
@@ -43,7 +43,7 @@ def createTriggerTemplate(schema):
 
                     SELECT primary_keys, foreign_keys, indices
                     INTO _primary_keys, _foreign_keys, _indices
-                    FROM {"\"" + schema + "\"" + "." + MATERIALIZED_VIEW}
+                    FROM "{schema}".{MATERIALIZED_VIEW}
                     WHERE table_name = TG_TABLE_NAME;
 
                     new_row = ROW_TO_JSON(NEW);
