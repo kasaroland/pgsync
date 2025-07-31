@@ -877,6 +877,13 @@ class Base(object):
         )
 
     def create_function(self, schema: str) -> None:
+        print (CREATE_TRIGGER_TEMPLATE.replace(
+                    MATERIALIZED_VIEW,
+                    f"\"{schema}\".{MATERIALIZED_VIEW}",
+                ).replace(
+                    TRIGGER_FUNC,
+                    f"\"{schema}\".{TRIGGER_FUNC}",
+                ))
         self.execute(
             sa.text(
                 CREATE_TRIGGER_TEMPLATE.replace(
