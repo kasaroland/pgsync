@@ -39,7 +39,10 @@ from .settings import (
     QUERY_CHUNK_SIZE,
     STREAM_RESULTS,
 )
-from .trigger import CREATE_TRIGGER_TEMPLATE
+from .trigger import (
+    createTriggerTemplate,
+    CREATE_TRIGGER_TEMPLATE
+)
 from .urls import get_postgres_url
 from .utils import compiled_query
 from .view import create_view, DropView, is_view, RefreshView
@@ -877,22 +880,9 @@ class Base(object):
         )
 
     def create_function(self, schema: str) -> None:
-        print (CREATE_TRIGGER_TEMPLATE.replace(
-                    MATERIALIZED_VIEW,
-                    f"\"{schema}\".{MATERIALIZED_VIEW}",
-                ).replace(
-                    TRIGGER_FUNC,
-                    f"\"{schema}\".{TRIGGER_FUNC}",
-                ))
         self.execute(
             sa.text(
-                CREATE_TRIGGER_TEMPLATE.replace(
-                    MATERIALIZED_VIEW,
-                    f"\"{schema}\".{MATERIALIZED_VIEW}",
-                ).replace(
-                    TRIGGER_FUNC,
-                    f"\"{schema}\".{TRIGGER_FUNC}",
-                )
+                createTriggerTemplate(schema)
             )
         )
 
