@@ -295,6 +295,7 @@ class Base(object):
         code = x[1].upper()
         schema = ini + "_" + code
         name: str = f"{schema}.{table}"
+        print self.__models
         if name not in self.__models:
             if schema not in self.__metadata:
                 metadata = sa.MetaData(schema=schema)
