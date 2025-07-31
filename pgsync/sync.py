@@ -293,6 +293,10 @@ class Sync(Base, metaclass=Singleton):
                 self.teardown(drop_view=False)
 
             for schema in self.schemas:
+                x = schema.split("_")
+                ini = x[0]
+                code = x[1].upper()
+                schema = ini + "_" + code
                 # TODO: move if_not_exists to the function
                 if if_not_exists or not self.function_exists(schema):
 
