@@ -881,10 +881,10 @@ class Base(object):
             sa.text(
                 CREATE_TRIGGER_TEMPLATE.replace(
                     MATERIALIZED_VIEW,
-                    f"{schema}.{MATERIALIZED_VIEW}",
+                    f"\"{schema}\".{MATERIALIZED_VIEW}",
                 ).replace(
                     TRIGGER_FUNC,
-                    f"{schema}.{TRIGGER_FUNC}",
+                    f"\"{schema}\".{TRIGGER_FUNC}",
                 )
             )
         )
